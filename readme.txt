@@ -34,6 +34,13 @@ C : 1
 A : 2
 
 
-#2Fonts
+#2 Fonts
 Fonts is a Java Swing application which will open a frame. It has a button at the center which on right click, will open a menu(list) with three options namely "Open test 1", "Test 2" and "Properties". On clicking "Properties", a new window/pop will open up with fields such as Change Text, Change Background color and 
 Change Font Color. User can enter values for the same. Upon clicking on Submit button, all changes are reflected on lable Changing Properties.
+
+#3 X-COS Web
+
+To run Part-B, follow the steps below:
+
+a). Download the folder named Xcos_Web (PartB) from Github
+b). Open the html page named x-cos_web located in Xcos_Web (PartB)\page using chrome or firefox
