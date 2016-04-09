@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>MxGraph Example</title>
+<!-- Sets the basepath for the library if not in same directory -->
+    <script type="text/javascript">
+        mxBasePath = '../src';
+    </script>
+
+    <!-- Loads and initializes the library -->
+    <script type="text/javascript" src="../src/js/mxClient.js"></script>
+<script type="text/javascript">
+function main(container)
+        {
+            // Checks if the browser is supported
+            if (!mxClient.isBrowserSupported())
+            {
+                // Displays an error message if the browser is not supported.
+                mxUtils.error('Browser is not supported!', 200, false);
+            }
+            else
+            {
+                // Disables the built-in context menu
+                mxEvent.disableContextMenu(container);
+
+                // Creates the graph inside the given container
+                var graph = new mxGraph(container);
+                graph.setConnectable(true);
+                
+                // Enables connect preview for the default edge style
+               graph.connectionHandler.createEdgeState = function(me)
+                {
+                    var edge = graph.createEdge(null, null, null, null, null);
+                    
+                    return new mxCellState(this.graph.view, edge, this.graph.getCellStyle(edge));
+               };
+                
+                // Specifies the default edge style
+                graph.getStylesheet().getDefaultEdgeStyle()['edgeStyle'] = 'orthogonalEdgeStyle';
+                
+                // Enables rubberband selection
+                new mxRubberband(graph);
+                
+                // Gets the default parent for inserting new cells. This
+                // is normally the first child of the root (ie. layer 0).
+                var parent = graph.getDefaultParent();
+                                
+                // Adds cells to the model in a single step
+                 //var style = graph.stylesheet.getDefaultVertexStyle();
+        //style[mxConstants.STYLE_SHAPE] = mxConstants.SHAPE_IMAGE;
+        //style[mxConstants.STYLE_PERIMETER] = mxPerimeter.RectanglePerimeter;
+        //style[mxConstants.STYLE_IMAGE] = 'CANIMXY3D.png';
+        //style[mxConstants.STYLE_FONTCOLOR] = '#FFFFFF';
+        //graph.getStylesheet().putCellStyle('image', style)
+
+                graph.getModel().beginUpdate();
+                try
+                {
+                   // var v0 = graph.insertVertex(parent, null, '',440, 250, 100, 130,"fillColor=pink;");
+                    var v1 = graph.insertVertex(parent, null, '3',430, 400, 100,80,"shape=image;image=SINBLK_f.png;verticalLabelPosition=top;fontStyle=1;verticalAlign=bottom;");
+                    var v2 = graph.insertVertex(parent, null, '2', 430, 200, 100, 130,"shape=image;image=COSBLK_f.png;verticalLabelPosition=top;fontStyle=1;verticalAlign=bottom");
+                    var v4 = graph.insertVertex(parent, null, '4', 750, 10, 100, 130,"shape=image;image=CLOCK_c.png;fontStyle=1;labelPosition=top;align=left");
+                    //var v7 = graph.insertVertex(parent, null, '', 650, 170, 100, 200,"fillColor=pink;");
+                    var v8 = graph.insertVertex(parent, null, '5', 750, 170, 100, 200,"shape=image;image=CANIMXY3D.png;");
+                    var v5 = graph.insertVertex(parent, null, '1', 150, 200, 100, 130,"shape=image;image=TIME_f.png;verticalLabelPosition=top;verticalAlign=bottom");
+		    var v6 = graph.insertVertex(parent, null, '', 320, 260, 10, 10,"");
+		    var t1 = graph.insertVertex(parent, null, '', 325, 440, 1, 1,"");
+		    var v9 = graph.insertVertex(parent, null, '', 620, 260, 10, 10,"");
+	  	    var v10 = graph.insertVertex(parent, null, '', 625, 305, 1, 1,"");
+		    var v11 = graph.insertVertex(parent, null, '', 757, 255, 1, 1,"");
+		    var v12 = graph.insertVertex(parent, null, '', 757, 305, 1, 1,"");
+		    var v13 = graph.insertVertex(parent, null, '', 757, 277, 1, 1,"");
+	  	    var v14 = graph.insertVertex(parent, null, '', 800, 240, 1, 1,"");
+	  	    var v15 = graph.insertVertex(parent, null, '', 700, 277, 1, 1,"");
+                    var e1 = graph.insertEdge(parent, null, '', v5, v2);
+                    var e2 = graph.insertEdge(parent, null, 'A', v6, t1,'perimeterSpacing=-15;labelBackgroundColor=white;fontColor=#FF0000;fontStyle=1;verticalAlign=top;edgeStyle=elbowEdgeStyle;elbow=horizontal;');
+                    var e3 = graph.insertEdge(parent, null, '', t1, v1);
+                    var e4 = graph.insertEdge(parent, null, '', v2, v11);
+		    var e5 = graph.insertEdge(parent, null, '', v9, v10);
+		    var e6 = graph.insertEdge(parent, null, 'B', v10, v12,'perimeterSpacing=-15;labelBackgroundColor=white;fontColor=#FF0000;fontStyle=1;verticalAlign=top;edgeStyle=elbowEdgeStyle;elbow=horizontal;');
+		    var e7 = graph.insertEdge(parent, null, '', v1, v15);
+		    var e8 = graph.insertEdge(parent, null, '', v15, v13); 
+		    var e9 = graph.insertEdge(parent, null, '', v4, v14,"strokeColor=red;");
+                    
+                }
+                finally
+                {
+                    // Updates the display
+                    graph.getModel().endUpdate();
+                }
+            }
+        };
+</script>
+</head>
+<body onload="main(document.getElementById('graphContainer'))" >
+<div id="graphContainer" style="overflow:hidden ;background:url('grid.png');">
+
+</div>
+
+</body>
+</html>
