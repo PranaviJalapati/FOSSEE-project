@@ -20,6 +20,7 @@ function main(container)
             }
             else
             {
+		
                 // Disables the built-in context menu
                 mxEvent.disableContextMenu(container);
 
@@ -39,7 +40,7 @@ function main(container)
                 graph.getStylesheet().getDefaultEdgeStyle()['edgeStyle'] = 'orthogonalEdgeStyle';
                 
                 // Enables rubberband selection
-                new mxRubberband(graph);
+                var rubberband = new mxRubberband(graph);
                 
                 // Gets the default parent for inserting new cells. This
                 // is normally the first child of the root (ie. layer 0).
@@ -53,14 +54,69 @@ function main(container)
         //style[mxConstants.STYLE_FONTCOLOR] = '#FFFFFF';
         //graph.getStylesheet().putCellStyle('image', style)
 
+		document.body.appendChild(container);		
+		graph.setTooltips(true);
+		var layout = new mxParallelEdgeLayout(graph);
+ 		var layoutMgr = new mxLayoutManager(graph);
+		var highlight = new mxCellTracker(graph, '#00FF00');
+ 		layoutMgr.getLayout = function(cell){
+			if (cell.getChildCount() > 0){
+				return layout;
+			}
+		};
+		var keyHandler = new mxKeyHandler(graph);
+		var style = graph.getStylesheet().getDefaultEdgeStyle();
+				style[mxConstants.STYLE_ROUNDED] = true;
+				style[mxConstants.STYLE_EDGE] = mxEdgeStyle.ElbowConnector;
+		
+				graph.alternateEdgeStyle = 'elbow=vertical';
+
+				// Installs a custom tooltip for cells
+				graph.getTooltipForCell = function(cell)
+				{
+					return 'Doubleclick';
+				}
+				
+				// Installs a popupmenu handler using local function (see below).
+				graph.popupMenuHandler.factoryMethod = function(menu, cell, evt)
+				{
+					return createPopupMenu(graph, menu, cell, evt);
+				};
+
+		// Installs a handler for double click events in the graph
+				// that shows an alert box
+				graph.addListener(mxEvent.DOUBLE_CLICK, function(sender, evt)
+				{
+					
+				
+					
+					
+					var tb = document.createElement('div');
+  					//var s1 = cell.getAttribute('A', ''); 
+					var s1 = document.createTextNode(window.prompt("Enter A"));
+										
+					tb.appendChild(s1);
+					
+					var wnd = new mxWindow('Value of A', tb, 880, 220, 150, 70, true, true);
+					wnd.setVisible(true);
+					wnd.setMaximizable(true);
+					wnd.setClosable(true);
+					wnd.setScrollable(true);
+					wnd.setResizable(true);
+
+
+				});
+
+
+
                 graph.getModel().beginUpdate();
                 try
                 {
-                   // var v0 = graph.insertVertex(parent, null, '',440, 250, 100, 130,"fillColor=pink;");
+                   
                     var v1 = graph.insertVertex(parent, null, '3',430, 400, 100,80,"shape=image;image=SINBLK_f.png;verticalLabelPosition=top;fontStyle=1;verticalAlign=bottom;");
                     var v2 = graph.insertVertex(parent, null, '2', 430, 200, 100, 130,"shape=image;image=COSBLK_f.png;verticalLabelPosition=top;fontStyle=1;verticalAlign=bottom");
                     var v4 = graph.insertVertex(parent, null, '4', 750, 10, 100, 130,"shape=image;image=CLOCK_c.png;fontStyle=1;labelPosition=top;align=left");
-                    //var v7 = graph.insertVertex(parent, null, '', 650, 170, 100, 200,"fillColor=pink;");
+                    
                     var v8 = graph.insertVertex(parent, null, '5', 750, 170, 100, 200,"shape=image;image=CANIMXY3D.png;");
                     var v5 = graph.insertVertex(parent, null, '1', 150, 200, 100, 130,"shape=image;image=TIME_f.png;verticalLabelPosition=top;verticalAlign=bottom");
 		    var v6 = graph.insertVertex(parent, null, '', 320, 260, 10, 10,"");
